@@ -30,7 +30,7 @@ module.exports = {
    solidity: "0.8.8",
    namedAccounts: {
       deployer: {
-         dafault: 0,
+         default: 0,
       },
       player: {
          default: 1,
