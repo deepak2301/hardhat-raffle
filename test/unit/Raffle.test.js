@@ -5,9 +5,11 @@ const {
    networkConfig,
 } = require("../../helper-hardhat-config")
 
+//* describe can't work with promises so we dont need to make the async function
+
 !developmentChains.includes(network.name)
    ? describe.skip
-   : describe("Raffle Unit Tests", async function () {
+   : describe("Raffle Unit Tests", function () {
         let raffle, vrfCoordinatorV2Mock, raffleEntryFee, deployer, interval
 
         const chainId = network.config.chainId
@@ -37,7 +39,7 @@ const {
            })
         })
         //* test to check if user has enough fund and if not revert it
-        describe("Enter Raffle", async () => {
+        describe("Enter Raffle", function () {
            it("reverts when you don't pay enough", async () => {
               await expect(raffle.enterRaffle()).to.be.revertedWithCustomError(
                  raffle,
@@ -73,7 +75,7 @@ const {
               ).to.be.revertedWithCustomError(raffle, "Raffle__NotOpen")
            })
         })
-        describe("checkUpkeep", async () => {
+        describe("checkUpkeep", function () {
            it("returns false if people haven't send eth", async () => {
               await network.provider.send("evm_increaseTime", [
                  interval.toNumber() + 1,
@@ -111,6 +113,35 @@ const {
               await network.provider.request({ method: "evm_mine", params: [] })
               const { upkeepNeeded } = await raffle.callStatic.checkUpkeep("0x")
               assert(upkeepNeeded)
+           })
+        })
+        describe("perfromupkeep", function () {
+           it("it can only run if checkUpkeep is true", async () => {
+              await raffle.enterRaffle({ value: raffleEntryFee })
+              await network.provider.send("evm_increaseTime", [
+                 interval.toNumber() + 1,
+              ])
+              await network.provider.send("evm_mine", [])
+              const tx = await raffle.performUpkeep([])
+              assert(tx)
+           })
+           it("it reverts if checkUpeep is false", async () => {
+              await expect(
+                 raffle.performUpkeep([])
+              ).to.be.revertedWithCustomError(raffle, "Raffle__UpkeepNotNeeded")
+           })
+           it("updates the raffle state,emits and event, and call vrfcoordinator", async () => {
+              await raffle.enterRaffle({ value: raffleEntryFee })
+              await network.provider.send("evm_increaseTime", [
+                 interval.toNumber() + 1,
+              ])
+              await network.provider.send("evm_mine", [])
+              const txResponse = await raffle.performUpkeep([])
+              const txReceipt = await txResponse.wait(1)
+              const requestId = txReceipt.events[1].args.requestId
+              const raffleState = await raffle.getRaffleState()
+              assert(requestId.toNumber() > 0)
+              assert(raffleState.toString() == "1")
            })
         })
      })
