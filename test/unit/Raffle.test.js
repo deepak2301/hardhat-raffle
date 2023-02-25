@@ -4,7 +4,6 @@ const {
    developmentChains,
    networkConfig,
 } = require("../../helper-hardhat-config")
-
 //* describe can't work with promises so we dont need to make the async function
 
 !developmentChains.includes(network.name)
@@ -142,6 +141,90 @@ const {
               const raffleState = await raffle.getRaffleState()
               assert(requestId.toNumber() > 0)
               assert(raffleState.toString() == "1")
+           })
+        })
+        describe("fulfillRandomWords", function () {
+           //* before we do any test of fulfillrandomWords we need somebody to have enter our raffle
+           beforeEach(async () => {
+              await raffle.enterRaffle({ value: raffleEntryFee })
+              await network.provider.send("evm_increaseTime", [
+                 interval.toNumber() + 1,
+              ])
+              await network.provider.send("evm_mine", [])
+           })
+           it("Can only be called after performUpkeep", async () => {
+              await expect(
+                 vrfCoordinatorV2Mock.fulfillRandomWords(0, raffle.address)
+              ).to.be.reverted
+
+              await expect(
+                 vrfCoordinatorV2Mock.fulfillRandomWords(1, raffle.address)
+              ).to.be.reverted
+           })
+           it("Seletct Random winner, Resets the raffle,send money to winner", async () => {
+              const additionalAccounts = 3
+              const startingAccountIndex = 2
+              const accounts = await ethers.getSigners()
+
+              for (
+                 let i = startingAccountIndex;
+                 i < startingAccountIndex + additionalAccounts;
+                 i++
+              ) {
+                 const accountConnectedRaffle = raffle.connect(accounts[i])
+                 await accountConnectedRaffle.enterRaffle({
+                    value: raffleEntryFee,
+                 })
+              }
+              //* keeping note of starting timestamp
+              const startingTimeStamp = await raffle.getLatestTimeStamp()
+
+              // Tasks to test
+              //performUpkeep (mock being chainlink keepers)
+              // fuldillRandomWords (mock being the chainlink VRF)
+              // we will have to wait for the fulfillRandomWords to be called
+
+              await new Promise(async (resolve, reject) => {
+                 raffle.once("WinnerPicked", async () => {
+                    console.log("Found the Event!")
+                    try {
+                       const recentWinner = await raffle.getRecentWinner()
+
+                       const raffleState = await raffle.getRaffleState()
+                       const endingTimeStamp = await raffle.getLatestTimeStamp()
+                       const numPlayers = await raffle.getNumberOfPlayers()
+                       const winnerEndingBalance =
+                          await accounts[2].getBalance()
+                       assert.equal(numPlayers.toString(), "0")
+                       assert.equal(raffleState.toString(), "0")
+
+                       assert(endingTimeStamp > startingTimeStamp)
+
+                       //*Funding the raffle Winner
+                       assert.equal(
+                          winnerEndingBalance.toString(),
+                          winnerStartingBalance.add(
+                             raffleEntryFee
+                                .mul(additionalAccounts)
+                                .add(raffleEntryFee)
+                                .toString()
+                          )
+                       )
+                    } catch (e) {
+                       reject(e)
+                    }
+                    resolve()
+                 })
+                 //* setting up the listener
+                 //* below we will fire the event and listner will pick it up and resolve
+                 const tx = await raffle.performUpkeep([])
+                 const txReceipt = await tx.wait(1)
+                 const winnerStartingBalance = await accounts[2].getBalance()
+                 await vrfCoordinatorV2Mock.fulfillRandomWords(
+                    txReceipt.events[1].args.requestId,
+                    raffle.address
+                 )
+              })
            })
         })
      })
