@@ -2,7 +2,7 @@
 pragma solidity ^0.8.7;
 import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
-import "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
 /**TODO in raffle.sol
  * Enter the lottery(By paying some amount)
  * pick a andom winner (verifyably random)
@@ -26,7 +26,7 @@ error Raffle__UpkeepNotNeeded(
  * @dev This implements ChainLink VRF2 and Chainlink keepers
  */
 
-contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
+contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
    /* Type Declarations */
    enum RaffleState {
       OPEN,

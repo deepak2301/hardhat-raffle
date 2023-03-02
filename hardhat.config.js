@@ -7,6 +7,7 @@ require("hardhat-contract-sizer")
 require("dotenv").config()
 /** @type import('hardhat/config').HardhatUserConfig */
 
+const MUMBAI_RPC_URL = process.env.MUMBAI_RPC_URL
 const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 const COINMARKET = process.env.COINMARKET
@@ -23,6 +24,11 @@ module.exports = {
          chainId: 5,
          blockConfirmations: 1,
          url: GOERLI_RPC_URL,
+         accounts: [PRIVATE_KEY],
+      },
+      polygonMumbai: {
+         chainId: 80001,
+         url: MUMBAI_RPC_URL,
          accounts: [PRIVATE_KEY],
       },
    },
