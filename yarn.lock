@@ -503,10 +503,14 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     "to-fast-properties" "^2.0.0"
 
-"@chainlink/contracts@^0.4.1":
-  "integrity" "sha512-eC8biY6Ks8k9kZKVt5305veCP3z57yyiy6Os5aR6auta6Bp34xWQ/s4qvrifcW4FNgWw1HJPwMPXDGfiehcLjg=="
-  "resolved" "https://registry.npmjs.org/@chainlink/contracts/-/contracts-0.4.1.tgz"
-  "version" "0.4.1"
+"@chainlink/contracts@^0.5.1":
+  "integrity" "sha512-3PDBJ38Sd6Ml9h7FNK/tZQti+kTCdXUq1qzE6E59CnlzycsV9ElPvf2hTvs9Mi9C6pEx2Mmw9yhZMfBktYUInQ=="
+  "resolved" "https://registry.npmjs.org/@chainlink/contracts/-/contracts-0.5.1.tgz"
+  "version" "0.5.1"
+  dependencies:
+    "@eth-optimism/contracts" "^0.5.21"
+    "@openzeppelin/contracts" "^4.3.3"
+    "@openzeppelin/contracts-v0.7" "npm:@openzeppelin/contracts@v3.4.2"
 
 "@chainlink/test-helpers@^0.0.7-alpha":
   "integrity" "sha512-q517sLdH3hy22qJm9KRDdjQoILIza4uhzw/V9wM4As7k53fIVWVdacbRPwTs9SSxmvkVPt0XYI3mhQEooZa/1Q=="
@@ -618,6 +622,37 @@
     "@openzeppelin/contracts" "^3.3.0"
     "ethers" "5.0.0"
     "ganache-core" "^2.12.1"
+
+"@eth-optimism/contracts@^0.5.21":
+  "integrity" "sha512-MrzV0nvsymfO/fursTB7m/KunkPsCndltVgfdHaT1Aj5Vi6R/doKIGGkOofHX+8B6VMZpuZosKCMQ5lQuqjt8w=="
+  "resolved" "https://registry.npmjs.org/@eth-optimism/contracts/-/contracts-0.5.40.tgz"
+  "version" "0.5.40"
+  dependencies:
+    "@eth-optimism/core-utils" "0.12.0"
+    "@ethersproject/abstract-provider" "^5.7.0"
+    "@ethersproject/abstract-signer" "^5.7.0"
+
+"@eth-optimism/core-utils@0.12.0":
+  "integrity" "sha512-qW+7LZYCz7i8dRa7SRlUKIo1VBU8lvN0HeXCxJR+z+xtMzMQpPds20XJNCMclszxYQHkXY00fOT6GvFw9ZL6nw=="
+  "resolved" "https://registry.npmjs.org/@eth-optimism/core-utils/-/core-utils-0.12.0.tgz"
+  "version" "0.12.0"
+  dependencies:
+    "@ethersproject/abi" "^5.7.0"
+    "@ethersproject/abstract-provider" "^5.7.0"
+    "@ethersproject/address" "^5.7.0"
+    "@ethersproject/bignumber" "^5.7.0"
+    "@ethersproject/bytes" "^5.7.0"
+    "@ethersproject/constants" "^5.7.0"
+    "@ethersproject/contracts" "^5.7.0"
+    "@ethersproject/hash" "^5.7.0"
+    "@ethersproject/keccak256" "^5.7.0"
+    "@ethersproject/properties" "^5.7.0"
+    "@ethersproject/providers" "^5.7.0"
+    "@ethersproject/rlp" "^5.7.0"
+    "@ethersproject/transactions" "^5.7.0"
+    "@ethersproject/web" "^5.7.0"
+    "bufio" "^1.0.7"
+    "chai" "^4.3.4"
 
 "@eth-optimism/ethereumjs-vm@^4.2.0-alpha.2":
   "integrity" "sha512-gqqMDJEx+WY5UcU6yyC2xNZyIwyl3dFPwfGi6VcrtlyzMwXj4OIYtSEZOBAgufNt02Z19Exbww4lornXgTgGyw=="
@@ -942,7 +977,7 @@
   dependencies:
     "@ethersproject/bignumber" "^5.0.13"
 
-"@ethersproject/contracts@^5.0.0", "@ethersproject/contracts@^5.0.5", "@ethersproject/contracts@^5.4.1", "@ethersproject/contracts@5.7.0":
+"@ethersproject/contracts@^5.0.0", "@ethersproject/contracts@^5.0.5", "@ethersproject/contracts@^5.4.1", "@ethersproject/contracts@^5.7.0", "@ethersproject/contracts@5.7.0":
   "integrity" "sha512-5GJbzEU3X+d33CdfPhcyS+z8MzsTrBGk/sc+G+59+tPa9yFkl6HQ9D6L0QMgNTA9q8dT0XKxxkyp883XsQvbbg=="
   "resolved" "https://registry.npmjs.org/@ethersproject/contracts/-/contracts-5.7.0.tgz"
   "version" "5.7.0"
@@ -1088,7 +1123,7 @@
   dependencies:
     "@ethersproject/logger" "^5.0.8"
 
-"@ethersproject/providers@^5.0.0", "@ethersproject/providers@^5.4.4", "@ethersproject/providers@5.7.2":
+"@ethersproject/providers@^5.0.0", "@ethersproject/providers@^5.4.4", "@ethersproject/providers@^5.7.0", "@ethersproject/providers@5.7.2":
   "integrity" "sha512-g34EWZ1WWAVgr4aptGlVBF8mhl3VWjv+8hoAnzStu8Ah22VHBsuGzP17eb6xDVRzw895G4W7vvx60lFFur/1Rg=="
   "resolved" "https://registry.npmjs.org/@ethersproject/providers/-/providers-5.7.2.tgz"
   "version" "5.7.2"
@@ -1813,6 +1848,11 @@
     "ethers" "^4.0.0-beta.1"
     "source-map-support" "^0.5.19"
 
+"@openzeppelin/contracts-v0.7@npm:@openzeppelin/contracts@v3.4.2":
+  "integrity" "sha512-z0zMCjyhhp4y7XKAcDAi3Vgms4T2PstwBdahiO0+9NaGICQKjynK3wduSRplTgk4LXmoO1yfDGO5RbjKYxtuxA=="
+  "resolved" "https://registry.npmjs.org/@openzeppelin/contracts/-/contracts-3.4.2.tgz"
+  "version" "3.4.2"
+
 "@openzeppelin/contracts@^3.3.0":
   "integrity" "sha512-z0zMCjyhhp4y7XKAcDAi3Vgms4T2PstwBdahiO0+9NaGICQKjynK3wduSRplTgk4LXmoO1yfDGO5RbjKYxtuxA=="
   "resolved" "https://registry.npmjs.org/@openzeppelin/contracts/-/contracts-3.4.2.tgz"
@@ -1823,7 +1863,7 @@
   "resolved" "https://registry.npmjs.org/@openzeppelin/contracts/-/contracts-3.4.2.tgz"
   "version" "3.4.2"
 
-"@openzeppelin/contracts@^4.5.0":
+"@openzeppelin/contracts@^4.3.3", "@openzeppelin/contracts@^4.5.0":
   "integrity" "sha512-xQ6eUZl+RDyb/FiZe1h+U7qr/f4p/SrTSQcTPH2bjur3C5DbuW/zFgCU/b1P/xcIaEqJep+9ju4xDRi3rmChdQ=="
   "resolved" "https://registry.npmjs.org/@openzeppelin/contracts/-/contracts-4.8.1.tgz"
   "version" "4.8.1"
@@ -3963,6 +4003,11 @@
   "version" "4.0.5"
   dependencies:
     "node-gyp-build" "^4.3.0"
+
+"bufio@^1.0.7":
+  "integrity" "sha512-UlFk8z/PwdhYQTXSQQagwGAdtRI83gib2n4uy4rQnenxUM2yQi8lBDzF230BNk+3wAoZDxYRoBwVVUPgHa9MCA=="
+  "resolved" "https://registry.npmjs.org/bufio/-/bufio-1.2.0.tgz"
+  "version" "1.2.0"
 
 "busboy@^1.6.0":
   "integrity" "sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA=="
@@ -6225,7 +6270,7 @@
     "uuid" "2.0.1"
     "xmlhttprequest" "1.8.0"
 
-"ethers@^5.0.0", "ethers@^5.0.1", "ethers@^5.0.13", "ethers@^5.0.14", "ethers@^5.0.2", "ethers@^5.2.0", "ethers@^5.5.1", "ethers@^5.5.2", "ethers@^5.7.0":
+"ethers@^5", "ethers@^5.0.0", "ethers@^5.0.1", "ethers@^5.0.13", "ethers@^5.0.14", "ethers@^5.0.2", "ethers@^5.2.0", "ethers@^5.5.1", "ethers@^5.5.2", "ethers@^5.7.0":
   "integrity" "sha512-wswUsmWo1aOK8rR7DIKiWSw9DbLWe6x98Jrn8wcTflTVvaXhAMaB5zGAXy0GYQEQp9iO1iSHWVyARQm11zUtyg=="
   "resolved" "https://registry.npmjs.org/ethers/-/ethers-5.7.2.tgz"
   "version" "5.7.2"
