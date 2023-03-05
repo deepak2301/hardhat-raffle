@@ -23,10 +23,10 @@ const networkConfig = {
       name: "polygonMumbai",
       vrfCoordinatorV2: "0x7a1BaC17Ccc5b313516C5E16fb24f7659aA5ebed",
       linkToken: "0x326C977E6efc84E512bB9C30f76E30c160eD06FB",
-      entranceFee: "100000000000000000", // 0.1 MATIC
+      entryFee: "100000000000000000", // 0.1 MATIC
       gasLane:
          "0x4b09e658ed251bcafeebbc69400383d49f344ace09b9576fe248bb02c003fe9f", // 500 gwei
-      subscriptionId: "10256",
+      subscriptionId: "3512",
       callbackGasLimit: "500000",
       interval: "30",
    },

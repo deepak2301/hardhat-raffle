@@ -2,5 +2,8 @@
   "editor.formatOnSave": true,
   "prettier.singleQuote": true,
   "prettier.semi": false,
-  "prettier.bracketSpacing": true
+  "prettier.bracketSpacing": true,
+  "cSpell.enableFiletypes": [
+    "solidity"
+  ]
 }
